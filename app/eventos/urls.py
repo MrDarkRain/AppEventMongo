@@ -8,5 +8,8 @@ app_name = 'eventos'
 
 urlpatterns = [
     path('index/', index_eventos),
-    #url(r'^juegosbien/', juegosmundialbien, name='juegos_listar'),   
+    #url(r'^juegosbien/', juegosmundialbien, name='juegos_listar'),
+    url(r'grafico/', evento_grafico),
+
+
 ]
