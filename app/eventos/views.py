@@ -3,19 +3,22 @@ from django.http import HttpResponse
 #import mongoengine
 #from mongoengine import authenticate
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
 
+import json
 
-#user = authenticate(username=username, password=password)
-#assert isinstance(user, mongoengine.django.auth.User)
 
 from pymongo import MongoClient
 
 
+client = MongoClient('mongodb://Proyectosw2:Proyectosw2@ds235708.mlab.com:35708/rusia2018sw2')
+db = client['rusia2018sw2']
+
 def index_eventos(request):
 
-	client = MongoClient('mongodb://Proyectosw2:Proyectosw2@ds235708.mlab.com:35708/rusia2018sw2')
+	
 
-	db = client['rusia2018sw2']
+	
 
 	person1 = { "name" : "Arturo", "age" : 25, "dept": 101, "languages":["English","German","Japanese"] }
 
@@ -41,3 +44,32 @@ def index_eventos(request):
 def evento_grafico(request):
 
     return render(request, 'graficos/graficoBarra.html')
+
+
+@csrf_exempt
+def validar(request):
+	print("entro a validar")
+	if request.method == 'POST':
+		infopost = request.POST.__getitem__('data')
+		evento = json.loads(infopost)
+
+		print(evento)
+		print(evento['usuario'])
+		print(evento['tipoevento'])
+		print(evento['fecha'])
+
+		print ("clearing")
+		db.employees.remove()
+
+
+		print ("guardando")
+		db.employees.save(evento)
+
+
+		temp = { 'rpta' : 'true' }	
+		data_string = json.dumps(temp)
+	
+	else:
+		print("algo va mal")
+	return HttpResponse(data_string, content_type='application/json')
+
