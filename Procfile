@@ -1,0 +1,1 @@
+web: gunicorn AppEventMongo.wsgi --log-file -

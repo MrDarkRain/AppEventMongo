@@ -26,15 +26,15 @@ def index_eventos(request):
 
 
 	print ("clearing")
-	db.employees.remove()
+	db.eventos.remove()
 
 
 	print ("guardando")
-	db.employees.save(person1)
-	db.employees.save(person2)
+	db.eventos.save(person1)
+	db.eventos.save(person2)
 
 	print ("searching")
-	for e in db.employees.find():
+	for e in db.eventos.find():
 		print (e["name"])
 
 
@@ -59,11 +59,11 @@ def validar(request):
 		print(evento['fecha'])
 
 		print ("clearing")
-		db.employees.remove()
+		#db.eventos.remove()
 
 
 		print ("guardando")
-		db.employees.save(evento)
+		db.eventos.save(evento)
 
 
 		temp = { 'rpta' : 'true' }	
