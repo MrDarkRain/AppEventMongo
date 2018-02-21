@@ -73,3 +73,15 @@ def validar(request):
 		print("algo va mal")
 	return HttpResponse(data_string, content_type='application/json')
 
+def mostrarinfo(request):
+
+	data = db.eventos.find()
+	print(data)
+	for e in db.eventos.find():
+		print (e["usuario"])
+		print (e["fecha"])
+
+	return HttpResponse(data, content_type='application/json')
+
+
+
