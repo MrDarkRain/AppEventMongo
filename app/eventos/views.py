@@ -81,7 +81,8 @@ def mostrarinfo(request):
 		print (e["usuario"])
 		#print (e["fecha"])
 
-	return HttpResponse('['+data+']', content_type='application/json')
+	lista = serializers.serialize('json', data)
+	return HttpResponse(lista, content_type='application/json')
 
 
 
