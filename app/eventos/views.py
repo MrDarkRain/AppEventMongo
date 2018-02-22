@@ -5,7 +5,10 @@ from django.http import HttpResponse
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 
-import json
+import simplejson as json
+import json as json2
+from bson import ObjectId
+from bson.son import SON
 
 
 from pymongo import MongoClient
@@ -77,12 +80,17 @@ def mostrarinfo(request):
 
 	data = db.eventos.find()
 	print(data)
-	for e in db.eventos.find():
+	lst_eventos = []
+	for e in data:
+		lst_eventos.append(e)
 		print (e["usuario"])
 		#print (e["fecha"])
+	temp = {
+		'collection' : lst_eventos
+	}
 
-	lista = serializers.serialize('json', data)
-	return HttpResponse(lista, content_type='application/json')
+	json_report = JSONEncoder().encode(temp)
 
+	return HttpResponse(json_report, content_type='application/json')
 
 
