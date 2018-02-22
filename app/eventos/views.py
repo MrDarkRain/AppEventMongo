@@ -81,7 +81,7 @@ def mostrarinfo(request):
 		print (e["usuario"])
 		#print (e["fecha"])
 
-	return HttpResponse(data, content_type='application/json')
+	return HttpResponse('['+data+']', content_type='application/json')
 
 
 
