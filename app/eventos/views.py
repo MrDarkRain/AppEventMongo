@@ -56,7 +56,7 @@ def validar(request):
 		print(evento)
 		print(evento['usuario'])
 		print(evento['tipoevento'])
-		print(evento['fecha'])
+		#print(evento['fecha'])
 
 		print ("clearing")
 		#db.eventos.remove()
