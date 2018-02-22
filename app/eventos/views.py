@@ -93,4 +93,10 @@ def mostrarinfo(request):
 
 	return HttpResponse(json_report, content_type='application/json')
 
+class JSONEncoder(json.JSONEncoder):
+	def default(self, o):
+		if isinstance(o, ObjectId):
+			return str(o)
+		return json2.JSONEncoder.default(self, o)
+
 
