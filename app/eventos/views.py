@@ -79,7 +79,7 @@ def mostrarinfo(request):
 	print(data)
 	for e in db.eventos.find():
 		print (e["usuario"])
-		print (e["fecha"])
+		#print (e["fecha"])
 
 	return HttpResponse(data, content_type='application/json')
 
