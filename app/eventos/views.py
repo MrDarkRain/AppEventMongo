@@ -76,6 +76,7 @@ def validar(request):
 		print("algo va mal")
 	return HttpResponse(data_string, content_type='application/json')
 
+@csrf_exempt
 def mostrarinfo(request):
 
 	data = db.eventos.find()
