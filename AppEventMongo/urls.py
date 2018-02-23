@@ -18,10 +18,11 @@ from django.urls import path
 from django.conf.urls import url, include
 from django.conf import settings
 from django.conf.urls.static import static
-from app.eventos.views import mostrarinfo
+from app.eventos.views import mostrarinfo,index
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('eventos/', include ('app.eventos.urls',namespace = 'eventos')),
-    path('eventos2/', mostrarinfo)
+    path('eventos2/', mostrarinfo),
+    path('', index)
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -17,6 +17,10 @@ from pymongo import MongoClient
 client = MongoClient('mongodb://Proyectosw2:Proyectosw2@ds235708.mlab.com:35708/rusia2018sw2')
 db = client['rusia2018sw2']
 
+def index(request):
+	#return render(request, 'graficos/graficoBarra.html')
+    return render(request, 'index.html')
+
 def index_eventos(request):
 
 	
@@ -29,7 +33,7 @@ def index_eventos(request):
 
 
 	print ("clearing")
-	db.eventos.remove()
+	#db.eventos.remove()
 
 
 	print ("guardando")
@@ -91,8 +95,8 @@ def mostrarinfo(request):
 	}
 
 	json_report = JSONEncoder().encode(temp)
-
-	return HttpResponse(json_report, content_type='application/json')
+	print(lst_eventos)
+	return HttpResponse(lst_eventos, content_type='application/json')
 
 class JSONEncoder(json.JSONEncoder):
 	def default(self, o):
