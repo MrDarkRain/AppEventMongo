@@ -84,19 +84,39 @@ def validar(request):
 def mostrarinfo(request):
 
 	data = db.eventos.find()
-	print(data)
+	
+	"""
 	lst_eventos = []
 	for e in data:
 		lst_eventos.append(e)
-		print (e["usuario"])
-		#print (e["fecha"])
+		#print (e["usuario"])
+		#print (e["dia"])
 	temp = {
 		'collection' : lst_eventos
 	}
+	
 
 	json_report = JSONEncoder().encode(temp)
-	print(lst_eventos)
-	return HttpResponse(lst_eventos, content_type='application/json')
+	"""
+	#print(lst_eventos)
+	listaeventos = []
+	cont = 0;
+	for i in data:
+		cont = cont + 1;
+		event = {'id': cont,
+				'usuario':i['usuario'],
+				'tipoevento':i['tipoevento'],
+				'hora':i['hora'],
+				'minuto':i['minuto'],
+				'dia':i['dia'],
+				'mes':i['mes'],
+				'año':i['año'],
+				'diasemana':i['diasemana']
+		}
+		listaeventos.append(event)
+	listajson = json.dumps(listaeventos)
+
+	return HttpResponse(listajson, content_type='application/json')
 
 class JSONEncoder(json.JSONEncoder):
 	def default(self, o):
