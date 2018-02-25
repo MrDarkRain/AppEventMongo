@@ -5,12 +5,7 @@ from django.http import HttpResponse
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 
-import simplejson as json
-import json as json2
-from bson import ObjectId
-from bson.son import SON
-
-
+import json
 from pymongo import MongoClient
 
 
@@ -23,18 +18,11 @@ def index(request):
 
 def index_eventos(request):
 
-	
-
-	
-
 	person1 = { "name" : "Arturo", "age" : 25, "dept": 101, "languages":["English","German","Japanese"] }
-
 	person2 = { "name" : "Jane Doe", "age" : 27, "languages":["English","Spanish","French"] }
 
-
 	print ("clearing")
-	#db.eventos.remove()
-
+	#db.eventoss.remove()
 
 	print ("guardando")
 	db.eventos.save(person1)
@@ -44,14 +32,7 @@ def index_eventos(request):
 	for e in db.eventos.find():
 		print (e["name"])
 
-
 	return HttpResponse("<h1>Soy la pagina principal</h1>")
-
-
-def evento_grafico(request):
-
-    return render(request, 'graficos/graficoBarra.html')
-
 
 @csrf_exempt
 def validar(request):
@@ -63,12 +44,6 @@ def validar(request):
 		print(evento)
 		print(evento['usuario'])
 		print(evento['tipoevento'])
-		#print(evento['fecha'])
-
-		print ("clearing")
-		#db.eventos.remove()
-
-
 		print ("guardando")
 		db.eventos.save(evento)
 
@@ -85,20 +60,6 @@ def mostrarinfo(request):
 
 	data = db.eventos.find()
 	
-	"""
-	lst_eventos = []
-	for e in data:
-		lst_eventos.append(e)
-		#print (e["usuario"])
-		#print (e["dia"])
-	temp = {
-		'collection' : lst_eventos
-	}
-	
-
-	json_report = JSONEncoder().encode(temp)
-	"""
-	#print(lst_eventos)
 	listaeventos = []
 	cont = 0;
 	for i in data:
@@ -117,11 +78,5 @@ def mostrarinfo(request):
 	listajson = json.dumps(listaeventos)
 
 	return HttpResponse(listajson, content_type='application/json')
-
-class JSONEncoder(json.JSONEncoder):
-	def default(self, o):
-		if isinstance(o, ObjectId):
-			return str(o)
-		return json2.JSONEncoder.default(self, o)
 
 
